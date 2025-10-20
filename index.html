@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Aquastar Ruffle</title>
+  <style>
+    html,body{margin:0;height:100%;background:#000;overflow:hidden}
+    #container{width:100%;height:100%}
+
+    /* FPS Counter Styles */
+    #fps-counter {
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      color: white;
+      background-color: rgba(0,0,0,0.7);
+      padding: 5px 10px;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      z-index: 1000;
+      border-radius: 3px;
+      pointer-events: none; /* Prevent interference with game */
+    }
+  </style>
+</head>
+<body>
+  <div id="container"></div>
+  <div id="fps-counter">FPS: 0</div> <!-- FPS display element -->
+
+  <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+
+  <script>
+    /* ---------- server list ---------- */
+    const servers = {
+      Twilly:      { host: 'socket5.aq.com',      port: 5588 },
+      Artix:       { host: 'socket.aq.com',       port: 5588 },
+      Gravelyn:    { host: 'socket4.aq.com',      port: 5589 },
+      'Sir Ver':   { host: 'socket2.aq.com',      port: 5588 },
+      Galanoth:    { host: 'socket6.aq.com',      port: 5589 },
+      Yorumi:      { host: 'socket3.aq.com',      port: 5588 },
+      Espada:      { host: 'socket2.aq.com',      port: 5591 },
+      Twig:        { host: 'socket4.aq.com',      port: 5588 },
+      Sepulchure:  { host: 'socket2.aq.com',      port: 5590 },
+      Safiria:     { host: 'socket6.aq.com',      port: 5588 },
+      Swordhaven:  { host: 'euro.aqw.artix.com',  port: 5588 },
+      Alteon:      { host: 'socket4.aq.com',      port: 5590 },
+      Yokai:       { host: 'asia.game.artix.com', port: 5588 }
+    };
+
+    const choice = new URLSearchParams(location.search).get('server') || 'Twilly';
+    const srv = servers[choice];
+
+    window.RufflePlayer = window.RufflePlayer || {};
+    window.RufflePlayer.config = {
+      logLevel: 'warn',
+      socketProxy: [{
+        host: srv.host,
+        port: srv.port,
+        proxyUrl: `ws://localhost:8181?host=${srv.host}&port=${srv.port}`
+      }],
+      scale: 'exactFit',
+      quality: 'medium',
+      allowFullscreen: true,
+      wmode: 'direct'
+    };
+
+    /* force player to fill viewport and remove scrollbars */
+    const style = document.createElement('style');
+    style.textContent = `
+      #container, #ruffle { 
+        width:100vw !important; 
+        height:100vh !important; 
+        overflow:hidden !important;
+      }
+      body { -ms-overflow-style: none; scrollbar-width: none; }
+      body::-webkit-scrollbar { display: none; }
+    `;
+    document.head.appendChild(style);
+  </script>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const ruffle = window.RufflePlayer.newest();
+      const player = ruffle.createPlayer();
+      player.id = 'ruffle';
+      document.getElementById('container').appendChild(player);
+
+      player.load({
+        url: 'https://game.aq.com/game/gamefiles/Loader_Spider.swf',
+        allowScriptAccess: true,
+        parameters: {
+          base: 'https://game.aq.com/game/gamefiles/',
+          allowNetworking: 'all'
+        }
+      }).catch(e => console.error('Player load failed:', e));
+
+      // FPS Counter Implementation
+      let frameCount = 0;
+      let lastTime = performance.now();
+      const fpsElement = document.getElementById('fps-counter');
+
+      function updateFPS() {
+        frameCount++;
+        const currentTime = performance.now();
+        if (currentTime - lastTime >= 1000) {
+          const fps = Math.round((frameCount * 1000) / (currentTime - lastTime));
+          fpsElement.textContent = `FPS: ${fps}`;
+          frameCount = 0;
+          lastTime = currentTime;
+        }
+        requestAnimationFrame(updateFPS);
+      }
+
+      updateFPS(); // Start the FPS counter
+    });
+  </script>
+</body>
+</html>

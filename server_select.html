@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Aquastar Ruffle</title>
+  <style>
+    html, body {
+      margin:0;
+      font-family:Arial,Helvetica,sans-serif;
+      background:#111;
+      color:#eee;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      height:100vh;
+      overflow:hidden; /* Remove scrollbars */
+    }
+    select,button{padding:8px 14px;font-size:16px;border-radius:4px;border:none}
+    select{margin-right:8px}
+    button{background:#2a82da;color:#fff;cursor:pointer}
+
+    /* Hide scrollbars completely */
+    ::-webkit-scrollbar { display: none; }
+    body { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body>
+  <select id="srv">
+    <option value="Twilly">Twilly</option>
+    <option value="Artix">Artix</option>
+    <option value="Gravelyn">Gravelyn</option>
+    <option value="Sir Ver">Sir Ver</option>
+    <option value="Galanoth">Galanoth</option>
+    <option value="Yorumi">Yorumi</option>
+    <option value="Espada">Espada</option>
+    <option value="Twig">Twig</option>
+    <option value="Sepulchure">Sepulchure</option>
+    <option value="Safiria">Safiria</option>
+    <option value="Swordhaven">Swordhaven</option>
+    <option value="Alteon">Alteon</option>
+    <option value="Yokai">Yokai</option>
+  </select>
+  <button id="play">Play</button>
+
+  <script>
+    document.getElementById('play').onclick = () => {
+      const s = document.getElementById('srv').value;
+      window.electronAPI.pickServer(s);
+    };
+  </script>
+</body>
+</html>
