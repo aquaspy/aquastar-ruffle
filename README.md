@@ -14,8 +14,8 @@ A lightweight, Electron-based launcher that brings **AdventureQuest Worlds** bac
 
 ## 🛠️ How to build
 1. Clone or download this repo  
-2. `npm install` (installs Electron + ws)  
-3. `npm run make`
+2. `npm install --include=dev` (installs Electron + ws)  
+3. `npm run build`
 
 ---
 ## 🚀 Using the project

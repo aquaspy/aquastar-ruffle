@@ -52,16 +52,14 @@
 
     window.RufflePlayer = window.RufflePlayer || {};
     window.RufflePlayer.config = {
-      logLevel: 'warn',
+      logLevel: 'error',
       socketProxy: [{
         host: srv.host,
         port: srv.port,
         proxyUrl: `ws://localhost:8181?host=${srv.host}&port=${srv.port}`
       }],
-      scale: 'exactFit',
-      quality: 'medium',
-      allowFullscreen: true,
-      wmode: 'direct'
+      //scale: 'exactFit', //Not needed for now. Lets use aqw defaults.
+      allowFullscreen: true
     };
 
     /* force player to fill viewport and remove scrollbars */
