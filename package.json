@@ -10,7 +10,8 @@
     "make": "electron-forge make"
   },
   "keywords": [],
-  "author": "",
+  "author": "Aquasp",
+  "description": "The ruffle launcher for aqw!",
   "license": "ISC",
   "dependencies": {
     "ws": "^8.18.3"
