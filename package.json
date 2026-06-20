@@ -1,6 +1,6 @@
 {
   "name": "aquastar-ruffle",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "main": "main.js",
   "autor": "aquasp",
   "description": "The ruffle launcher to play AQW!",
@@ -50,6 +50,7 @@
       ]
     },
     "linux": {
+      "compression": "normal",
       "target": [
         {
           "target": "AppImage",
