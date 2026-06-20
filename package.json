@@ -1,11 +1,23 @@
 {
   "name": "aquastar-ruffle",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "main.js",
   "autor": "aquasp",
   "description": "The ruffle launcher to play AQW!",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aquaspy/aquastar-ruffle.git"
+  },
   "build": {
     "appId": "aquastar.ruffle",
+    "productName": "Aquastar Ruffle",
+    "asar": true,
+    "compression": "maximum",
+    "publish": {
+      "provider": "github",
+      "owner": "aquaspy",
+      "repo": "aquastar-ruffle"
+    },
     "directories": {
       "output": "dist"
     },
@@ -25,6 +37,9 @@
       ]
     },
     "mac": {
+      "identity": null,
+      "hardenedRuntime": false,
+      "gatekeeperAssess": false,
       "target": [
         {
           "target": "dmg",

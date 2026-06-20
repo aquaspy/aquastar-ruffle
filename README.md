@@ -13,9 +13,35 @@ A lightweight, Electron-based launcher that brings **AdventureQuest Worlds** bac
 ---
 
 ## 🛠️ How to build
-1. Clone or download this repo  
-2. `npm install --include=dev` (installs Electron + ws)  
-3. `npm run build`
+
+### Local dev
+```bash
+npm install --include=dev
+npm start
+```
+
+### Local installer (current OS)
+```bash
+npm install --include=dev
+npm run build
+```
+Output lands in `dist/`.
+
+### Official releases (all platforms)
+Releases are built automatically by GitHub Actions when a version tag is pushed:
+
+```bash
+# bump version in package.json, then:
+git add package.json
+git commit -m "Bump version to X.Y.Z"
+git tag vX.Y.Z
+git push origin main
+git push origin vX.Y.Z
+```
+
+CI builds **Linux AppImage** (x64 + arm64), **Windows NSIS**, and **macOS DMG** (universal, unsigned) and attaches them to the GitHub Release.
+
+Nothing extra to install locally for releases — builds run on GitHub's runners. You only need `git` and `gh` (or a browser) to tag and monitor the workflow.
 
 ---
 ## 🚀 Using the project
